@@ -1,5 +1,5 @@
 {
-  "name": "@rbxts/rbxts",
+  "name": "@rbxts/clack",
   "version": "1.0.0",
   "description": "User input helper classes",
   "main": "out/init.lua",
