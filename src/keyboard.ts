@@ -10,19 +10,19 @@ export class Keyboard {
 	 * Fired when the user presses down on a key.
 	 *
 	 * ```ts
-	 * keyboard.keyDown.connect((keyCode) => print(keyCode));
+	 * keyboard.keyDown.connect((keyCode, processed) => print(keyCode));
 	 * ```
 	 */
-	public keyDown = new Signal<[key: Enum.KeyCode]>();
+	public keyDown = new Signal<[key: Enum.KeyCode, processed: boolean]>();
 
 	/**
 	 * Fired when the user releases a key.
 	 *
 	 * ```ts
-	 * keyboard.keyUp.connect((keyCode) => print(keyCode));
+	 * keyboard.keyUp.connect((keyCode, processed) => print(keyCode));
 	 * ```
 	 */
-	public keyUp = new Signal<[key: Enum.KeyCode]>();
+	public keyUp = new Signal<[key: Enum.KeyCode, processed: boolean]>();
 
 	private trove = new Trove();
 
@@ -34,17 +34,15 @@ export class Keyboard {
 		this.trove.add(this.keyUp);
 		this.trove.add(
 			UserInputService.InputBegan.Connect((input, processed) => {
-				if (processed) return;
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
-					this.keyDown.fire(input.KeyCode);
+					this.keyDown.fire(input.KeyCode, processed);
 				}
 			}),
 		);
 		this.trove.add(
 			UserInputService.InputEnded.Connect((input, processed) => {
-				if (processed) return;
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
-					this.keyUp.fire(input.KeyCode);
+					this.keyUp.fire(input.KeyCode, processed);
 				}
 			}),
 		);
