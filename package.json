@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/clack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "User input helper classes",
   "main": "out/init.lua",
   "scripts": {
@@ -43,8 +43,8 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@rbxts/beacon": "^1.1.1",
+    "@rbxts/beacon": "^1.2.0",
     "@rbxts/services": "^1.2.0",
-    "@rbxts/trove": "^1.1.0"
+    "@rbxts/trove": "^1.1.1"
   }
 }
