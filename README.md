@@ -34,8 +34,8 @@ Watch for mouse input.
 ```ts
 const mouse = new Mouse();
 
-mouse.getButtonDownSignal(Enum.UserInputType.MouseButton1).connect(() => {
-	print("Left button down");
+mouse.getButtonDownSignal(Enum.UserInputType.MouseButton1).connect((position) => {
+	print("Left button down", position);
 });
 
 print(mouse.getPosition());
