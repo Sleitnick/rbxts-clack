@@ -9,7 +9,7 @@ namespace Clack {
 	export type MouseButton = Enum.UserInputType.MouseButton1 | Enum.UserInputType.MouseButton2;
 }
 
-type ButtonSignal = [button: Clack.MouseButton];
+type ButtonSignal = [position: Vector3];
 
 const RAY_DISTANCE = 1000;
 
@@ -36,7 +36,7 @@ export class Mouse {
 				) {
 					const signal = this.mouseDownSignals.get(input.UserInputType);
 					if (signal) {
-						signal.fire(input.UserInputType);
+						signal.fire(input.Position);
 					}
 				}
 			}),
@@ -50,7 +50,7 @@ export class Mouse {
 				) {
 					const signal = this.mouseUpSignals.get(input.UserInputType);
 					if (signal) {
-						signal.fire(input.UserInputType);
+						signal.fire(input.Position);
 					}
 				}
 			}),
@@ -59,6 +59,13 @@ export class Mouse {
 
 	/**
 	 * Retrieves a signal that will be fired when `button` is pressed down.
+	 *
+	 * ```ts
+	 * mouse.getButtonDownSignal(Enum.UserInputType.MouseButton1).connect((position) => {
+	 * 	print(`Left button down at ${position}`);
+	 * });
+	 * ```
+	 *
 	 * @param button
 	 * @returns `Signal<ButtonSignal>`
 	 */
@@ -74,6 +81,13 @@ export class Mouse {
 
 	/**
 	 * Retrieves a signal that will be fired when `button` is released.
+	 *
+	 * ```ts
+	 * mouse.getButtonUpSignal(Enum.UserInputType.MouseButton1).connect((position) => {
+	 * 	print(`Left button up at ${position}`);
+	 * });
+	 * ```
+	 *
 	 * @param button
 	 * @returns `Signal<ButtonSignal>`
 	 */
@@ -89,6 +103,13 @@ export class Mouse {
 
 	/**
 	 * Checks if the given button is currently being pressed down.
+	 *
+	 * ```ts
+	 * if (mouse.isButtonDown(Enum.UserInputType.MouseButton1)) {
+	 * 	print("Left mouse button down");
+	 * }
+	 * ```
+	 *
 	 * @param button
 	 * @returns `true` if being pressed down
 	 */
