@@ -21,6 +21,7 @@ export class Mouse {
 
 	private mouseDownSignals = new Map<Clack.MouseButton, Signal<ButtonSignal>>();
 	private mouseUpSignals = new Map<Clack.MouseButton, Signal<ButtonSignal>>();
+	private scrollSignal?: Signal<number>;
 
 	/**
 	 * Constructs a new mouse object.
@@ -93,6 +94,33 @@ export class Mouse {
 	 */
 	public isButtonDown(button: Clack.MouseButton): boolean {
 		return UserInputService.IsMouseButtonPressed(button);
+	}
+
+	/**
+	 * Retrieves a signal that will be fired when the mouse wheel is moved.
+	 *
+	 * ```ts
+	 * mouse.getScrollSignal().connect((scrollAmount) => {
+	 * 	print(`Scrolled: ${scrollAmount}`);
+	 * });
+	 * ```
+	 *
+	 * @returns `Signal<number>`
+	 */
+	public getScrollSignal(): Signal<number> {
+		if (!this.scrollSignal) {
+			const signal = this.trove.add(new Signal<number>());
+			this.scrollSignal = signal;
+			this.trove.add(
+				UserInputService.InputChanged.Connect((input, processed) => {
+					if (processed) return;
+					if (input.UserInputType === Enum.UserInputType.MouseWheel) {
+						signal.fire(input.Position.Z);
+					}
+				}),
+			);
+		}
+		return this.scrollSignal;
 	}
 
 	/**
