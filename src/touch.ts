@@ -3,7 +3,7 @@ import { UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
 
 namespace Clack {
-	export type TouchTapEvent = [touchPositions: InputObject[], processed: boolean];
+	export type TouchTapEvent = [touchPositions: Vector2[], processed: boolean];
 	export type TouchTapInWorldEvent = [position: Vector2, processed: boolean];
 	export type TouchEvent = [touch: InputObject, processed: boolean];
 	export type TouchLongPressEvent = [touchPositions: InputObject[], state: Enum.UserInputState, processed: boolean];
@@ -58,7 +58,7 @@ export class Touch {
 			s = this.touchTap = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchTap.Connect((touchPositions, processed) => {
-					s?.fire(touchPositions, processed);
+					s?.Fire(touchPositions, processed);
 				}),
 			);
 		}
@@ -75,7 +75,7 @@ export class Touch {
 			s = this.touchTapInWorld = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchTapInWorld.Connect((position, processed) => {
-					s?.fire(position, processed);
+					s?.Fire(position, processed);
 				}),
 			);
 		}
@@ -92,7 +92,7 @@ export class Touch {
 			s = this.touchMoved = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchMoved.Connect((touch, processed) => {
-					s?.fire(touch, processed);
+					s?.Fire(touch, processed);
 				}),
 			);
 		}
@@ -109,7 +109,7 @@ export class Touch {
 			s = this.touchLongPress = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchLongPress.Connect((touchPositions, state, processed) => {
-					s?.fire(touchPositions, state, processed);
+					s?.Fire(touchPositions, state, processed);
 				}),
 			);
 		}
@@ -126,7 +126,7 @@ export class Touch {
 			s = this.touchPan = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchPan.Connect((touchPositions, totalTranslation, velocity, state, processed) => {
-					s?.fire(touchPositions, totalTranslation, velocity, state, processed);
+					s?.Fire(touchPositions, totalTranslation, velocity, state, processed);
 				}),
 			);
 		}
@@ -143,7 +143,7 @@ export class Touch {
 			s = this.touchPinch = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchPinch.Connect((touchPositions, scale, velocity, state, processed) => {
-					s?.fire(touchPositions, scale, velocity, state, processed);
+					s?.Fire(touchPositions, scale, velocity, state, processed);
 				}),
 			);
 		}
@@ -160,7 +160,7 @@ export class Touch {
 			s = this.touchRotate = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchRotate.Connect((touchPositions, rotation, velocity, state, processed) => {
-					s?.fire(touchPositions, rotation, velocity, state, processed);
+					s?.Fire(touchPositions, rotation, velocity, state, processed);
 				}),
 			);
 		}
@@ -177,7 +177,7 @@ export class Touch {
 			s = this.touchSwipe = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchSwipe.Connect((swipeDirection, numberOfTouches, processed) => {
-					s?.fire(swipeDirection, numberOfTouches, processed);
+					s?.Fire(swipeDirection, numberOfTouches, processed);
 				}),
 			);
 		}
@@ -194,7 +194,7 @@ export class Touch {
 			s = this.touchStarted = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchStarted.Connect((touch, processed) => {
-					s?.fire(touch, processed);
+					s?.Fire(touch, processed);
 				}),
 			);
 		}
@@ -211,7 +211,7 @@ export class Touch {
 			s = this.touchEnded = this.trove.add(new Signal());
 			this.trove.add(
 				UserInputService.TouchEnded.Connect((touch, processed) => {
-					s?.fire(touch, processed);
+					s?.Fire(touch, processed);
 				}),
 			);
 		}

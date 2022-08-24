@@ -160,8 +160,8 @@ export class Gamepad {
 		this.state.clear();
 		this.gamepad = gamepad;
 		if (!gamepad) {
-			this.disconnected.fire();
-			this.gamepadChanged.fire(undefined);
+			this.disconnected.Fire();
+			this.gamepadChanged.Fire(undefined);
 			return;
 		}
 		UserInputService.GetGamepadState(gamepad).forEach((input) => {
@@ -171,21 +171,21 @@ export class Gamepad {
 		this.gamepadTrove.add(
 			UserInputService.InputBegan.Connect((input, processed) => {
 				if (input.UserInputType === gamepad) {
-					this.buttonDown.fire(input.KeyCode as Clack.GamepadButton, processed);
+					this.buttonDown.Fire(input.KeyCode as Clack.GamepadButton, processed);
 				}
 			}),
 		);
 		this.gamepadTrove.add(
 			UserInputService.InputEnded.Connect((input, processed) => {
 				if (input.UserInputType === gamepad) {
-					this.buttonUp.fire(input.KeyCode as Clack.GamepadButton, processed);
+					this.buttonUp.Fire(input.KeyCode as Clack.GamepadButton, processed);
 				}
 			}),
 		);
 		if (lastGamepad === undefined) {
-			this.connected.fire();
+			this.connected.Fire();
 		}
-		this.gamepadChanged.fire(gamepad);
+		this.gamepadChanged.Fire(gamepad);
 	}
 
 	private setupGamepad(gamepadOverride?: Clack.GamepadType) {

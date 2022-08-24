@@ -34,7 +34,7 @@ Watch for mouse input.
 ```ts
 const mouse = new Mouse();
 
-mouse.getButtonDownSignal(Enum.UserInputType.MouseButton1).connect((position) => {
+mouse.getButtonDownSignal(Enum.UserInputType.MouseButton1).Connect((position) => {
 	print("Left button down", position);
 });
 
@@ -50,11 +50,11 @@ Watch for keyboard input.
 ```ts
 const keyboard = new Keyboard();
 
-keyboard.keyDown.connect((keyCode) => {
+keyboard.keyDown.Connect((keyCode) => {
 	print(`Key down: ${tostring(keyCode)}`);
 });
 
-keyboard.keyUp.connect((keyCode) => {
+keyboard.keyUp.Connect((keyCode) => {
 	print(`Key up: ${tostring(keyCode)}`);
 });
 
@@ -72,7 +72,7 @@ Watch for gamepad input.
 ```ts
 const gamepad = new Gamepad();
 
-gamepad.buttonDown.connect((button) => {
+gamepad.buttonDown.Connect((button) => {
 	print(`Button down: ${tostring(button)}`);
 });
 
@@ -91,7 +91,7 @@ Watch for touch input.
 ```ts
 const touch = new Touch();
 
-touch.getTouchTapSignal().connect((touchPositions, processed) => {
+touch.getTouchTapSignal().Connect((touchPositions, processed) => {
 	print("Touched");
 });
 ```

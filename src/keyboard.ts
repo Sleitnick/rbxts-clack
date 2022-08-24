@@ -35,14 +35,14 @@ export class Keyboard {
 		this.trove.add(
 			UserInputService.InputBegan.Connect((input, processed) => {
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
-					this.keyDown.fire(input.KeyCode, processed);
+					this.keyDown.Fire(input.KeyCode, processed);
 				}
 			}),
 		);
 		this.trove.add(
 			UserInputService.InputEnded.Connect((input, processed) => {
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
-					this.keyUp.fire(input.KeyCode, processed);
+					this.keyUp.Fire(input.KeyCode, processed);
 				}
 			}),
 		);

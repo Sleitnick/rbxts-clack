@@ -36,7 +36,7 @@ export class Mouse {
 				) {
 					const signal = this.mouseDownSignals.get(input.UserInputType);
 					if (signal) {
-						signal.fire(input.Position);
+						signal.Fire(input.Position);
 					}
 				}
 			}),
@@ -50,7 +50,7 @@ export class Mouse {
 				) {
 					const signal = this.mouseUpSignals.get(input.UserInputType);
 					if (signal) {
-						signal.fire(input.Position);
+						signal.Fire(input.Position);
 					}
 				}
 			}),
@@ -136,7 +136,7 @@ export class Mouse {
 				UserInputService.InputChanged.Connect((input, processed) => {
 					if (processed) return;
 					if (input.UserInputType === Enum.UserInputType.MouseWheel) {
-						signal.fire(input.Position.Z);
+						signal.Fire(input.Position.Z);
 					}
 				}),
 			);
