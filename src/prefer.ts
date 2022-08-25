@@ -74,9 +74,9 @@ function setPreferred(preferred: Clack.InputType) {
 function determinePreferred(inputType: Enum.UserInputType) {
 	if (inputType === Enum.UserInputType.Touch) {
 		setPreferred(Clack.InputType.Touch);
-	} else if (inputType === Enum.UserInputType.Keyboard || inputType.Name.sub(0, 4) === "Mouse") {
+	} else if (inputType === Enum.UserInputType.Keyboard || inputType.Name.sub(1, 5) === "Mouse") {
 		setPreferred(Clack.InputType.MouseKeyboard);
-	} else if (inputType.Name.sub(0, 6) === "Gamepad") {
+	} else if (inputType.Name.sub(1, 7) === "Gamepad") {
 		setPreferred(Clack.InputType.Gamepad);
 	}
 }
