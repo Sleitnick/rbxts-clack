@@ -1,6 +1,6 @@
 import { UserInputService } from "@rbxts/services";
 
-namespace Clack {
+export namespace Clack {
 	/**
 	 * Represents the various preferred input types.
 	 */
