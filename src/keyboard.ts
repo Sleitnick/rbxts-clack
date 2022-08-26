@@ -26,6 +26,8 @@ export class Keyboard {
 
 	private trove = new Trove();
 
+	private keysDown = new Set<Enum.KeyCode>();
+
 	/**
 	 * Constructs a new keyboard object.
 	 */
@@ -35,6 +37,9 @@ export class Keyboard {
 		this.trove.add(
 			UserInputService.InputBegan.Connect((input, processed) => {
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
+					if (!processed) {
+						this.keysDown.add(input.KeyCode);
+					}
 					this.keyDown.Fire(input.KeyCode, processed);
 				}
 			}),
@@ -42,6 +47,7 @@ export class Keyboard {
 		this.trove.add(
 			UserInputService.InputEnded.Connect((input, processed) => {
 				if (input.UserInputType === Enum.UserInputType.Keyboard) {
+					this.keysDown.delete(input.KeyCode);
 					this.keyUp.Fire(input.KeyCode, processed);
 				}
 			}),
@@ -49,7 +55,8 @@ export class Keyboard {
 	}
 
 	/**
-	 * Checks if a key is down.
+	 * Checks if a key is down. This will only return `true` for keys
+	 * that were pressed and not processed.
 	 * @param keyCode
 	 * @returns `true` if the key is down.
 	 *
@@ -58,6 +65,16 @@ export class Keyboard {
 	 * ```
 	 */
 	public isKeyDown(keyCode: Enum.KeyCode): boolean {
+		return this.keysDown.has(keyCode);
+	}
+
+	/**
+	 * The same as `isKeyDown()`, except will also work for key presses
+	 * that were processed.
+	 * @param keyCode
+	 * @returns `true` if the key is down.
+	 */
+	public isKeyDownAllowProcessed(keyCode: Enum.KeyCode): boolean {
 		return UserInputService.IsKeyDown(keyCode);
 	}
 
@@ -76,6 +93,17 @@ export class Keyboard {
 	}
 
 	/**
+	 * The same as `isKeyComboDown()`, except will also work for key presses
+	 * that were processed.
+	 * @param keyCodePrimary
+	 * @param keyCodeSecondary
+	 * @returns `true` if both are down
+	 */
+	public isKeyComboDownAllowProcessed(keyCodePrimary: Enum.KeyCode, keyCodeSecondary: Enum.KeyCode): boolean {
+		return this.isKeyDownAllowProcessed(keyCodePrimary) && this.isKeyDownAllowProcessed(keyCodeSecondary);
+	}
+
+	/**
 	 * Checks if at least one of the keys is down.
 	 * @param keyCode1
 	 * @param keyCode2
@@ -87,6 +115,17 @@ export class Keyboard {
 	 */
 	public isEitherKeyDown(keyCode1: Enum.KeyCode, keyCode2: Enum.KeyCode): boolean {
 		return this.isKeyDown(keyCode1) || this.isKeyDown(keyCode2);
+	}
+
+	/**
+	 * The same as `isEitherKeyDown()`, except will also work for key presses
+	 * that were processed.
+	 * @param keyCode1
+	 * @param keyCode2
+	 * @returns `true` if one of the keys is down
+	 */
+	public isEitherKeyDownAllowProcessed(keyCode1: Enum.KeyCode, keyCode2: Enum.KeyCode): boolean {
+		return this.isKeyDownAllowProcessed(keyCode1) || this.isKeyDownAllowProcessed(keyCode2);
 	}
 
 	/**
