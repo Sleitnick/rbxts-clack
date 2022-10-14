@@ -2,20 +2,6 @@ import { Signal } from "@rbxts/beacon";
 import { GuiService, HapticService, UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
 
-/**
- * Remaps `value` to get rid of any deadzone on the low-end.
- * @param value Input value
- * @param threshold Low threshold
- * @returns Remapped value
- */
-export function applyDeadzone(value: number, threshold: number): number {
-	const absValue = math.abs(value);
-	if (absValue < threshold) {
-		return 0;
-	}
-	return ((absValue - threshold) / (1 - threshold)) * math.sign(value);
-}
-
 function getActiveGamepad(): Clack.GamepadType | undefined {
 	let activeGamepad: Enum.UserInputType | undefined = undefined;
 	const navGamepads = UserInputService.GetNavigationGamepads();
@@ -78,6 +64,20 @@ namespace Clack {
 	 * Represents all `Enum.KeyCode` triggers.
 	 */
 	export type GamepadTrigger = Enum.KeyCode.ButtonL2 | Enum.KeyCode.ButtonR2;
+
+	/**
+	 * Remaps `value` to get rid of any deadzone on the low-end.
+	 * @param value Input value
+	 * @param threshold Low threshold
+	 * @returns Remapped value
+	 */
+	export function applyDeadzone(value: number, threshold: number): number {
+		const absValue = math.abs(value);
+		if (absValue < threshold) {
+			return 0;
+		}
+		return ((absValue - threshold) / (1 - threshold)) * math.sign(value);
+	}
 }
 
 /**
@@ -243,7 +243,7 @@ export class Gamepad {
 	public getThumbstick(thumbstick: Clack.GamepadThumbstick, deadzoneThreshold?: number): Vector2 {
 		const pos = this.state.get(thumbstick)?.Position ?? Vector3.zero;
 		const deadzone = deadzoneThreshold ?? this.defaultDeadzone;
-		return new Vector2(applyDeadzone(pos.X, deadzone), applyDeadzone(pos.Y, deadzone));
+		return new Vector2(Clack.applyDeadzone(pos.X, deadzone), Clack.applyDeadzone(pos.Y, deadzone));
 	}
 
 	/**
@@ -253,7 +253,10 @@ export class Gamepad {
 	 * @returns Trigger position
 	 */
 	public getTrigger(trigger: Clack.GamepadTrigger, deadzoneThreshold?: number): number {
-		return applyDeadzone(this.state.get(trigger)?.Position?.Z ?? 0, deadzoneThreshold ?? this.defaultDeadzone);
+		return Clack.applyDeadzone(
+			this.state.get(trigger)?.Position?.Z ?? 0,
+			deadzoneThreshold ?? this.defaultDeadzone,
+		);
 	}
 
 	/**
