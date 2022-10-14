@@ -2,7 +2,7 @@ import { Signal } from "@rbxts/beacon";
 import { UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
 
-namespace Clack {
+export namespace Clack {
 	export type TouchTapEvent = [touchPositions: Vector2[], processed: boolean];
 	export type TouchTapInWorldEvent = [position: Vector2, processed: boolean];
 	export type TouchEvent = [touch: InputObject, processed: boolean];

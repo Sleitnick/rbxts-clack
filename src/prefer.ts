@@ -4,7 +4,7 @@ import { Trove } from "@rbxts/trove";
 type ObserverFn = (inputType: Clack.InputType) => void;
 
 /** Enum representing the user's preferred input type. */
-namespace Clack {
+export namespace Clack {
 	export const enum InputType {
 		/** User prefers mouse & keyboard input. */
 		MouseKeyboard = "MouseKeyboard",

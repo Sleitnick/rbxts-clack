@@ -24,7 +24,7 @@ function getActiveGamepad(): Clack.GamepadType | undefined {
 	return activeGamepad;
 }
 
-namespace Clack {
+export namespace Clack {
 	/**
 	 * Represents all `Enum.KeyCode` gamepad buttons.
 	 */

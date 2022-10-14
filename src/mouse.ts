@@ -2,7 +2,7 @@ import { Signal } from "@rbxts/beacon";
 import { UserInputService, Workspace } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
 
-namespace Clack {
+export namespace Clack {
 	/**
 	 * Represents `Enum.UserInputType` mouse buttons.
 	 */
