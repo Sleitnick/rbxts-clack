@@ -1,6 +1,7 @@
 import { Signal } from "@rbxts/beacon";
 import { GuiService, HapticService, UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
+import { Clack } from "./types";
 
 function getActiveGamepad(): Clack.GamepadType | undefined {
 	let activeGamepad: Enum.UserInputType | undefined = undefined;
@@ -22,62 +23,6 @@ function getActiveGamepad(): Clack.GamepadType | undefined {
 		activeGamepad = undefined;
 	}
 	return activeGamepad;
-}
-
-export namespace Clack {
-	/**
-	 * Represents all `Enum.KeyCode` gamepad buttons.
-	 */
-	export type GamepadButton =
-		| Enum.KeyCode.ButtonA
-		| Enum.KeyCode.ButtonB
-		| Enum.KeyCode.ButtonY
-		| Enum.KeyCode.ButtonX
-		| Enum.KeyCode.ButtonL1
-		| Enum.KeyCode.ButtonL2
-		| Enum.KeyCode.ButtonL3
-		| Enum.KeyCode.ButtonR1
-		| Enum.KeyCode.ButtonR2
-		| Enum.KeyCode.ButtonR3
-		| Enum.KeyCode.ButtonSelect
-		| Enum.KeyCode.ButtonStart;
-
-	/**
-	 * Represents all `Enum.UserInputType` gamepads.
-	 */
-	export type GamepadType =
-		| Enum.UserInputType.Gamepad1
-		| Enum.UserInputType.Gamepad2
-		| Enum.UserInputType.Gamepad3
-		| Enum.UserInputType.Gamepad4
-		| Enum.UserInputType.Gamepad5
-		| Enum.UserInputType.Gamepad6
-		| Enum.UserInputType.Gamepad7
-		| Enum.UserInputType.Gamepad8;
-
-	/**
-	 * Represents all `Enum.KeyCode` thumbsticks.
-	 */
-	export type GamepadThumbstick = Enum.KeyCode.Thumbstick1 | Enum.KeyCode.Thumbstick2;
-
-	/**
-	 * Represents all `Enum.KeyCode` triggers.
-	 */
-	export type GamepadTrigger = Enum.KeyCode.ButtonL2 | Enum.KeyCode.ButtonR2;
-
-	/**
-	 * Remaps `value` to get rid of any deadzone on the low-end.
-	 * @param value Input value
-	 * @param threshold Low threshold
-	 * @returns Remapped value
-	 */
-	export function applyDeadzone(value: number, threshold: number): number {
-		const absValue = math.abs(value);
-		if (absValue < threshold) {
-			return 0;
-		}
-		return ((absValue - threshold) / (1 - threshold)) * math.sign(value);
-	}
 }
 
 /**
@@ -141,6 +86,20 @@ export class Gamepad {
 	private gamepadTrove = new Trove();
 	private setMotorIds = new Map<Enum.VibrationMotor, number>();
 	private gamepad: Clack.GamepadType | undefined;
+
+	/**
+	 * Remaps `value` to get rid of any deadzone on the low-end.
+	 * @param value Input value
+	 * @param threshold Low threshold
+	 * @returns Remapped value
+	 */
+	public static applyDeadzone(value: number, threshold: number): number {
+		const absValue = math.abs(value);
+		if (absValue < threshold) {
+			return 0;
+		}
+		return ((absValue - threshold) / (1 - threshold)) * math.sign(value);
+	}
 
 	/**
 	 * Create a new wrapper around a gamepad controller.
@@ -243,7 +202,7 @@ export class Gamepad {
 	public getThumbstick(thumbstick: Clack.GamepadThumbstick, deadzoneThreshold?: number): Vector2 {
 		const pos = this.state.get(thumbstick)?.Position ?? Vector3.zero;
 		const deadzone = deadzoneThreshold ?? this.defaultDeadzone;
-		return new Vector2(Clack.applyDeadzone(pos.X, deadzone), Clack.applyDeadzone(pos.Y, deadzone));
+		return new Vector2(Gamepad.applyDeadzone(pos.X, deadzone), Gamepad.applyDeadzone(pos.Y, deadzone));
 	}
 
 	/**
@@ -253,7 +212,7 @@ export class Gamepad {
 	 * @returns Trigger position
 	 */
 	public getTrigger(trigger: Clack.GamepadTrigger, deadzoneThreshold?: number): number {
-		return Clack.applyDeadzone(
+		return Gamepad.applyDeadzone(
 			this.state.get(trigger)?.Position?.Z ?? 0,
 			deadzoneThreshold ?? this.defaultDeadzone,
 		);

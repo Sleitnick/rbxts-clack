@@ -1,21 +1,8 @@
 import { GuiService, UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
+import { Clack } from "./types";
 
 type ObserverFn = (inputType: Clack.InputType) => void;
-
-/** Enum representing the user's preferred input type. */
-export namespace Clack {
-	export const enum InputType {
-		/** User prefers mouse & keyboard input. */
-		MouseKeyboard = "MouseKeyboard",
-
-		/** User prefers touch input. */
-		Touch = "Touch",
-
-		/** User prefers gamepad input. */
-		Gamepad = "Gamepad",
-	}
-}
 
 /**
  * Represents the preferred input of the local player.

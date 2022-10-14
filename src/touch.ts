@@ -1,35 +1,7 @@
 import { Signal } from "@rbxts/beacon";
 import { UserInputService } from "@rbxts/services";
 import { Trove } from "@rbxts/trove";
-
-export namespace Clack {
-	export type TouchTapEvent = [touchPositions: Vector2[], processed: boolean];
-	export type TouchTapInWorldEvent = [position: Vector2, processed: boolean];
-	export type TouchEvent = [touch: InputObject, processed: boolean];
-	export type TouchLongPressEvent = [touchPositions: InputObject[], state: Enum.UserInputState, processed: boolean];
-	export type TouchPanEvent = [
-		touchPositions: InputObject[],
-		totalTranslation: Vector2,
-		velocity: Vector2,
-		state: Enum.UserInputState,
-		processed: boolean,
-	];
-	export type TouchPinchEvent = [
-		touchPositions: InputObject[],
-		scale: number,
-		velocity: number,
-		state: Enum.UserInputState,
-		processed: boolean,
-	];
-	export type TouchRotateEvent = [
-		touchPositions: InputObject[],
-		rotation: number,
-		velocity: number,
-		state: Enum.UserInputState,
-		processed: boolean,
-	];
-	export type TouchSwipeEvent = [swipeDirection: Enum.SwipeDirection, numberOfTouches: number, processed: boolean];
-}
+import { Clack } from "./types";
 
 /**
  * Represents touch input.
