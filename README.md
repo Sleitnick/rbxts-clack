@@ -13,9 +13,11 @@ The preferred input is based on the last input the user has made. Because player
 For instance, if there are UI elements that show the player the control schema for the game, using `observePreferredInput` can be used to dynamically change this display if the user switches between using a gamepad and using a mouse/keyboard.
 
 ```ts
-print(`Preferred: ${tostring(getPreferredInput())}`);
+const prefer = new Prefer();
 
-observePreferredInput((preferred) => {
+print(`Preferred: ${tostring(prefer.getPreferredInput())}`);
+
+prefer.observePreferredInput((preferred) => {
 	print(`Preferred: ${tostring(preferred)}`);
 	if (preferred === Clack.InputType.MouseKeyboard) {
 		print("Prefer mouse and keyboard");
