@@ -41,7 +41,11 @@ export namespace Clack {
 		| Enum.KeyCode.ButtonR2
 		| Enum.KeyCode.ButtonR3
 		| Enum.KeyCode.ButtonSelect
-		| Enum.KeyCode.ButtonStart;
+		| Enum.KeyCode.ButtonStart
+		| Enum.KeyCode.DPadLeft
+		| Enum.KeyCode.DPadRight
+		| Enum.KeyCode.DPadUp
+		| Enum.KeyCode.DPadDown;
 
 	/**
 	 * Represents all `Enum.UserInputType` gamepads.
