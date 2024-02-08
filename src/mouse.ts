@@ -26,7 +26,8 @@ export class Mouse {
 				if (processed) return;
 				if (
 					input.UserInputType === Enum.UserInputType.MouseButton1 ||
-					input.UserInputType === Enum.UserInputType.MouseButton2
+					input.UserInputType === Enum.UserInputType.MouseButton2 ||
+					input.UserInputType === Enum.UserInputType.MouseButton3
 				) {
 					const signal = this.mouseDownSignals.get(input.UserInputType);
 					if (signal) {
@@ -40,7 +41,8 @@ export class Mouse {
 				if (processed) return;
 				if (
 					input.UserInputType === Enum.UserInputType.MouseButton1 ||
-					input.UserInputType === Enum.UserInputType.MouseButton2
+					input.UserInputType === Enum.UserInputType.MouseButton2 ||
+					input.UserInputType === Enum.UserInputType.MouseButton3
 				) {
 					const signal = this.mouseUpSignals.get(input.UserInputType);
 					if (signal) {

@@ -73,7 +73,7 @@ export namespace Clack {
 	/**
 	 * Represents `Enum.UserInputType` mouse buttons.
 	 */
-	export type MouseButton = Enum.UserInputType.MouseButton1 | Enum.UserInputType.MouseButton2;
+	export type MouseButton = Enum.UserInputType.MouseButton1 | Enum.UserInputType.MouseButton2 | Enum.UserInputType.MouseButton3;
 
 	/** Enum representing the user's preferred input type. */
 	export const enum InputType {
